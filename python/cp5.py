@@ -1,5 +1,8 @@
+with open ('lista.txt', 'r', ecoding='utf-8') as file:
+    listas = file.read()
+
 import pandas as pd
-arquivo = pd.read_csv("numbers.csv", sep=',')
+arquivo = pd.read_csv("numbers.txt", sep=',')
 print(arquivo)
 
 
