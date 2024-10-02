@@ -1,20 +1,27 @@
-with open ('lista.txt', 'r', ecoding='utf-8') as file:
-    listas = file.read()
-
-import pandas as pd
-arquivo = pd.read_csv("numbers.txt", sep=',')
-print(arquivo)
+import time
 
 
-def opção():
+def menu():
     print("""
     Escolha uma opção:
     (1) - Bubble Sort
     (2) - Insertion Sort
     (3) - Selection Sort
     (4) - Merge Sort
+    (5) - Sair do Programa
     """)
-    opção = int(input("Escolha uma opção de 1 ao 4"))
+    try:
+        opcao = int(input("Escolha uma opção de 1 ao 4:"))
+        if opcao < 1 or opcao > 5:
+            print('Opção inválida. Escolha um número do MENU')
+        else:
+            return opcao
+        
+    except ValueError:
+        print('Entrada inválida (somente números) você pode digitar. Por favor, digite um número entre 1 a 9.')    
+    except  Exception as e:
+        print(f'Ocorreu um erro: {e}')
+    
 
 
 def bubble_sort(lista):
@@ -92,32 +99,75 @@ def merge_sort(lista):
             j+=1
             k+=1  
 
-def menu():
-    match opcao:
-        case 1:
-            lista = bubble_sort()
-            print(f'Lista original: {lista}')
-            bubble_sort(lista)
-            print(f'Lista ordenada: {lista}')   
+def main():
+    lista_original = []
+    with open('lista.txt', 'r', encoding='utf-8') as file:
+        lista = file.read()
 
-        case 2:
-            lista = insertion_sort()
-            print(f'Lista original: {lista}')
-            insertion_sort(lista)
-            print(f'Lista ordenada: {lista}')   
+    numero_lista = lista.split(",")
 
-        case 3:
-            lista = selection_sort()
-            print(f'Lista original: {lista}')
-            selection_sort(lista)
-            print(f'Lista ordenada: {lista}')
+    for i in numero_lista:
+        try:
+            lista_original.append(int(i.strip()))
+        except ValueError:
+            print(f"Valor inválido encontrado: '{i}'")
 
-        case 4:
-            lista = merge_sort()
-            print(f'Lista original: {lista}')
-            merge_sort(lista)
-            print(f'Lista ordenada: {lista}')
+    print(f'Lista original: {lista_original}') #coloquei aqui se não tinha que colocarm esse print em todas as 4 opreções
+        
+
+    while True:
+        opcao = menu()
+        
+        if opcao == 1:
+            
+            tempo = get_time(bubble_sort, lista_original[:])  # Passar cópia da lista
+
+            print(f'Lista ordenada: {lista_original}') 
+
+            print(f'Tempo de execução: {tempo:.2f} segundos')  
+
+        if opcao == 2:
+            #print(f'Lista original: {lista}')
+
+            tempo = get_time(insertion_sort, lista_original[:]) 
+
+            print(f'Lista ordenada: {lista_original}')  
+
+            print(f'Tempo de execução: {tempo:.2f} segundos')   
+
+        if opcao ==3:
+            #print(f'Lista original: {lista}')
+
+            tempo = get_time(selection_sort, lista_original[:]) 
+
+            print(f'Lista ordenada: {lista_original}')
+
+            print(f'Tempo de execução: {tempo:.2f} segundos') 
 
 
-menu()
+        if opcao == 4:
+            #print(f'Lista original: {lista}')
+
+            tempo = get_time(merge_sort, lista_original[:])
+
+            print(f'Lista ordenada: {lista_original}')
+
+            print(f'Tempo de execução: {tempo:.2f} segundos')
+
+        if opcao == 5:
+            print("Fim do Programa")  
+            break  
+
+
+def get_time(algoritmo, lista):
+    inicio = time.time()
+    algoritmo(lista)
+    fim = time.time()
+    return (fim - inicio)
+
+
+
+#Principal
+main()
+
 
