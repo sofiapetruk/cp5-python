@@ -1,6 +1,7 @@
 import time
 
 
+
 def menu():
     print("""
     Escolha uma opção:
@@ -11,7 +12,7 @@ def menu():
     (5) - Sair do Programa
     """)
     try:
-        opcao = int(input("Escolha uma opção de 1 ao 4:"))
+        opcao = int(input("Escolha uma opção de 1 ao 5:"))
         if opcao < 1 or opcao > 5:
             print('Opção inválida. Escolha um número do MENU')
         else:
@@ -120,16 +121,20 @@ def main():
         
         if opcao == 1:
             
-            tempo = get_time(bubble_sort, lista_original[:])  # Passar cópia da lista
+            lista_ordenada = lista_original[:]
 
-            print(f'Lista ordenada: {lista_original}') 
+            tempo = get_time(bubble_sort, lista_ordenada)  # Passar cópia da lista
+
+            print(f'Lista ordenada: {lista_ordenada}') 
 
             print(f'Tempo de execução: {tempo:.2f} segundos')  
 
         if opcao == 2:
             #print(f'Lista original: {lista}')
 
-            tempo = get_time(insertion_sort, lista_original[:]) 
+            lista_ordenada = lista_original[:]
+
+            tempo = get_time(insertion_sort, lista_ordenada) 
 
             print(f'Lista ordenada: {lista_original}')  
 
@@ -138,7 +143,9 @@ def main():
         if opcao ==3:
             #print(f'Lista original: {lista}')
 
-            tempo = get_time(selection_sort, lista_original[:]) 
+            lista_ordenada = lista_original[:]
+
+            tempo = get_time(selection_sort, lista_ordenada) 
 
             print(f'Lista ordenada: {lista_original}')
 
@@ -148,7 +155,9 @@ def main():
         if opcao == 4:
             #print(f'Lista original: {lista}')
 
-            tempo = get_time(merge_sort, lista_original[:])
+            lista_ordenada = lista_original[:]
+
+            tempo = get_time(merge_sort, lista_ordenada)
 
             print(f'Lista ordenada: {lista_original}')
 
