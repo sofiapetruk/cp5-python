@@ -1,24 +1,4 @@
 import time
-import random 
-
-def dados():
-    dado = int(input("Digite quantos números na lista você deseja ordenar: "))
-    return dado
-
-def criacao_dado(dado):
-    numero = 0
-    lista = []
-    separacao_numero = ", "
-
-    while numero < dado:  # Aqui `dado` é um número inteiro
-        lista.append(str(random.randint(1, dado)))  # Adiciona números aleatórios à lista
-        numero += 1
-
-    resultado = separacao_numero.join(lista)  # Junta os números em uma string separada por ", "
-
-    with open('lista.txt', 'w') as file:
-        file.write(resultado)  # Grava o resultado no arquivo 'lista.txt'
-
 
 def menu():
     print("""
@@ -138,8 +118,7 @@ def main():
         
 
     while True:
-        dado = dados()  
-        criacao_dado(dado)
+        
 
         opcao = menu()
         
@@ -147,14 +126,13 @@ def main():
             
             lista_ordenada = lista_original[:]
 
-            tempo = get_time(bubble_sort, lista_ordenada)  # Passar cópia da lista
+            tempo = get_time(bubble_sort, lista_ordenada) 
 
             print(f'Lista ordenada: {lista_ordenada}') 
 
             print(f'Tempo de execução do Bubble Sort: {tempo:.3f} segundos')  
 
         if opcao == 2:
-            #print(f'Lista original: {lista}')
 
             lista_ordenada = lista_original[:]
 
@@ -166,7 +144,6 @@ def main():
 
         if opcao ==3:
             
-
             lista_ordenada = lista_original[:]
 
             tempo = get_time(selection_sort, lista_ordenada) 
