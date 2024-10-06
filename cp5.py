@@ -1,5 +1,23 @@
 import time
+import random 
 
+def dados():
+    dado = int(input("Digite quantos números na lista você deseja ordenar: "))
+    return dado
+
+def criacao_dado(dado):
+    numero = 0
+    lista = []
+    separacao_numero = ", "
+
+    while numero < dado:  # Aqui `dado` é um número inteiro
+        lista.append(str(random.randint(1, dado)))  # Adiciona números aleatórios à lista
+        numero += 1
+
+    resultado = separacao_numero.join(lista)  # Junta os números em uma string separada por ", "
+
+    with open('lista.txt', 'w') as file:
+        file.write(resultado)  # Grava o resultado no arquivo 'lista.txt'
 
 
 def menu():
@@ -101,15 +119,18 @@ def merge_sort(lista):
             k+=1  
 
 def main():
+    # Inicializa uma lista vazia que será preenchida com números inteiros do arquivo
     lista_original = []
+
+    # Abre o arquivo 'lista.txt' em modo de leitura, com codificação UTF-8
     with open('lista.txt', 'r', encoding='utf-8') as file:
-        lista = file.read()
+        lista = file.read() # Lê todo o conteúdo do arquivo e armazena na variável 'lista' como uma string
 
-    numero_lista = lista.split(",")
+    numero_lista = lista.split(",") # Divide a string lida onde há vírgulas, resultando em uma lista de strings
 
-    for i in numero_lista:
+    for i in numero_lista: # Percorre cada item da lista 'numero_lista'
         try:
-            lista_original.append(int(i.strip()))
+            lista_original.append(int(i.strip())) # Remove espaços em branco com strip() e tenta converter o item para inteiro
         except ValueError:
             print(f"Valor inválido encontrado: '{i}'")
 
@@ -117,6 +138,9 @@ def main():
         
 
     while True:
+        dado = dados()  
+        criacao_dado(dado)
+
         opcao = menu()
         
         if opcao == 1:
@@ -127,7 +151,7 @@ def main():
 
             print(f'Lista ordenada: {lista_ordenada}') 
 
-            print(f'Tempo de execução: {tempo:.2f} segundos')  
+            print(f'Tempo de execução do Bubble Sort: {tempo:.3f} segundos')  
 
         if opcao == 2:
             #print(f'Lista original: {lista}')
@@ -138,10 +162,10 @@ def main():
 
             print(f'Lista ordenada: {lista_original}')  
 
-            print(f'Tempo de execução: {tempo:.2f} segundos')   
+            print(f'Tempo de execução do Inserting Sort: {tempo:.3f} segundos')   
 
         if opcao ==3:
-            #print(f'Lista original: {lista}')
+            
 
             lista_ordenada = lista_original[:]
 
@@ -149,19 +173,22 @@ def main():
 
             print(f'Lista ordenada: {lista_original}')
 
-            print(f'Tempo de execução: {tempo:.2f} segundos') 
+            print(f'Tempo de execução do Selection Sort: {tempo:.3f} segundos') 
 
 
         if opcao == 4:
-            #print(f'Lista original: {lista}')
-
+            # Faz uma cópia da lista original e atribui à variável 'lista_ordenada'
+            # O uso de [:] faz uma cópia completa da lista, mantendo a lista original intacta
             lista_ordenada = lista_original[:]
 
+            # Mede o tempo de execução do algoritmo 'bubble_sort' aplicado à lista copiada 'lista_ordenada'
+            # O 'get_time' é uma função que retorna o tempo total que o algoritmo leva para ordenar a lista
+            # Passamos 'lista_ordenada' (a cópia) para que a lista original não seja modificada
             tempo = get_time(merge_sort, lista_ordenada)
 
-            print(f'Lista ordenada: {lista_original}')
+            print(f'Lista ordenada: {lista_original}') # Exibe a lista que foi ordenada após a execução do algoritmo
 
-            print(f'Tempo de execução: {tempo:.2f} segundos')
+            print(f'Tempo de execução Merge Sort: {tempo:.3f} segundos')
 
         if opcao == 5:
             print("Fim do Programa")  
@@ -169,10 +196,10 @@ def main():
 
 
 def get_time(algoritmo, lista):
-    inicio = time.time()
-    algoritmo(lista)
-    fim = time.time()
-    return (fim - inicio)
+    inicio = time.time() # Armazena o tempo inicial (antes da execução do algoritmo)
+    algoritmo(lista) # Executa o algoritmo passando a lista como argumento
+    fim = time.time()  # Armazena o tempo final (após a execução do algoritmo)
+    return (fim - inicio) # Retorna a diferença entre o tempo final e o inicial (tempo de execução)
 
 
 
