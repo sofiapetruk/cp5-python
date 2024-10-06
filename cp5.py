@@ -97,86 +97,96 @@ def merge_sort(lista):
             lista[k] = R[j]
             j+=1
             k+=1  
-
-def main():
-    # Inicializa uma lista vazia que será preenchida com números inteiros do arquivo
-    lista_original = []
-
-    # Abre o arquivo 'lista.txt' em modo de leitura, com codificação UTF-8
-    with open('lista.txt', 'r', encoding='utf-8') as file:
-        lista = file.read() # Lê todo o conteúdo do arquivo e armazena na variável 'lista' como uma string
-
-    numero_lista = lista.split(",") # Divide a string lida onde há vírgulas, resultando em uma lista de strings
-
-    for i in numero_lista: # Percorre cada item da lista 'numero_lista'
-        try:
-            lista_original.append(int(i.strip())) # Remove espaços em branco com strip() e tenta converter o item para inteiro
-        except ValueError:
-            print(f"Valor inválido encontrado: '{i}'")
-
-    print(f'Lista original: {lista_original}') #coloquei aqui se não tinha que colocarm esse print em todas as 4 opreções
-        
-
-    while True:
-        
-
-        opcao = menu()
-        
-        if opcao == 1:
-            
-            lista_ordenada = lista_original[:]
-
-            tempo = get_time(bubble_sort, lista_ordenada) 
-
-            print(f'Lista ordenada: {lista_ordenada}') 
-
-            print(f'Tempo de execução do Bubble Sort: {tempo:.3f} segundos')  
-
-        if opcao == 2:
-
-            lista_ordenada = lista_original[:]
-
-            tempo = get_time(insertion_sort, lista_ordenada) 
-
-            print(f'Lista ordenada: {lista_original}')  
-
-            print(f'Tempo de execução do Inserting Sort: {tempo:.3f} segundos')   
-
-        if opcao ==3:
-            
-            lista_ordenada = lista_original[:]
-
-            tempo = get_time(selection_sort, lista_ordenada) 
-
-            print(f'Lista ordenada: {lista_original}')
-
-            print(f'Tempo de execução do Selection Sort: {tempo:.3f} segundos') 
-
-
-        if opcao == 4:
-            # Faz uma cópia da lista original e atribui à variável 'lista_ordenada'
-            # O uso de [:] faz uma cópia completa da lista, mantendo a lista original intacta
-            lista_ordenada = lista_original[:]
-
-            # Mede o tempo de execução do algoritmo 'bubble_sort' aplicado à lista copiada 'lista_ordenada'
-            # O 'get_time' é uma função que retorna o tempo total que o algoritmo leva para ordenar a lista
-            # Passamos 'lista_ordenada' (a cópia) para que a lista original não seja modificada
-            tempo = get_time(merge_sort, lista_ordenada)
-
-            print(f'Lista ordenada: {lista_original}') # Exibe a lista que foi ordenada após a execução do algoritmo
-
-            print(f'Tempo de execução Merge Sort: {tempo:.3f} segundos')
-
-        if opcao == 5:
-            print("Fim do Programa")  
-            break  
-
-
 def get_time(algoritmo, lista):
     inicio = time.time() # Armazena o tempo inicial (antes da execução do algoritmo)
     algoritmo(lista) # Executa o algoritmo passando a lista como argumento
     fim = time.time()  # Armazena o tempo final (após a execução do algoritmo)
     return (fim - inicio) # Retorna a diferença entre o tempo final e o inicial (tempo de execução)
+
+
+def main():
+    # Inicializa uma lista vazia que será preenchida com números inteiros do arquivo
+    lista_original = []
+    
+
+    try:
+
+        # Abre o arquivo 'lista.txt' em modo de leitura, com codificação UTF-8
+        with open('lista.txt', 'r', encoding='utf-8') as file:
+            lista = file.read() # Lê todo o conteúdo do arquivo e armazena na variável 'lista' como uma string
+
+        numero_lista = lista.split(",") # Divide a string lida onde há vírgulas, resultando em uma lista de strings
+
+        for i in numero_lista: # Percorre cada item da lista 'numero_lista'
+            try:
+                lista_original.append(int(i.strip())) # Remove espaços em branco com strip() e tenta converter o item para inteiro
+            except ValueError:
+                print(f"Valor inválido encontrado: '{i}'")
+
+        
+            
+
+        while True:
+            
+
+            opcao = menu()
+            
+            if opcao == 1:
+                
+                lista_ordenada = lista_original[:]
+
+                tempo = get_time(bubble_sort, lista_ordenada) 
+
+                print(f'Lista ordenada: {lista_ordenada}') 
+
+                print(f'Tempo de execução do Bubble Sort: {tempo:.3f} segundos')  
+
+            if opcao == 2:
+
+                lista_ordenada = lista_original[:]
+
+                tempo = get_time(insertion_sort, lista_ordenada) 
+
+                print(f'Lista ordenada: {lista_ordenada}')  
+
+                print(f'Tempo de execução do Inserting Sort: {tempo:.3f} segundos')   
+
+            if opcao ==3:
+                
+                lista_ordenada = lista_original[:]
+
+                tempo = get_time(selection_sort, lista_ordenada) 
+
+                print(f'Lista ordenada: {lista_ordenada}')
+
+                print(f'Tempo de execução do Selection Sort: {tempo:.3f} segundos') 
+
+
+            if opcao == 4:
+                # Faz uma cópia da lista original e atribui à variável 'lista_ordenada'
+                # O uso de [:] faz uma cópia completa da lista, mantendo a lista original intacta
+                lista_ordenada = lista_original[:]
+
+                # Mede o tempo de execução do algoritmo 'bubble_sort' aplicado à lista copiada 'lista_ordenada'
+                # O 'get_time' é uma função que retorna o tempo total que o algoritmo leva para ordenar a lista
+                # Passamos 'lista_ordenada' (a cópia) para que a lista original não seja modificada
+                tempo = get_time(merge_sort, lista_ordenada)
+
+                print(f'Lista ordenada: {lista_ordenada}') # Exibe a lista que foi ordenada após a execução do algoritmo
+
+                print(f'Tempo de execução Merge Sort: {tempo:.3f} segundos')
+
+            if opcao == 5:
+                print("Fim do Programa")  
+                break 
+    
+    except FileNotFoundError:
+        print("O arquivo 'lista.txt' não foi encontrado.")
+    except Exception as e:
+        print(f'Ocorreu um erro ao ler o arquivo: {e}')             
+
+
+
 
 
 
